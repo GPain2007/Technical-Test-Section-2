@@ -1,7 +1,9 @@
+const { User, ToDo } = require("../models");
+
 const resolvers = {
   Query: {
-    helloWorld: () => {
-      return "Hello world!";
+    ToDos: async () => {
+      return ToDo.find().sort({ createdAt: -1 });
     },
   },
 };

@@ -20,7 +20,7 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-    ToDo: [
+    Todo: [
       {
         type: Schema.Types.ObjectId,
         ref: "ToDo",
