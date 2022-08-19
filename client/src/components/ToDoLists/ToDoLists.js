@@ -17,10 +17,10 @@ const ToDoList = ({ ToDos, title }) => {
             </p>
             <div className="card-body">
               <p>{ToDo.ToDoText}</p>
-              <p className="mb-0">
+              {/* <p className="mb-0">
                 Reactions: {ToDo.reactionCount} || Click to{" "}
                 {ToDo.reactionCount ? "see" : "start"} the discussion!
-              </p>
+              </p> */}
             </div>
           </div>
         ))}

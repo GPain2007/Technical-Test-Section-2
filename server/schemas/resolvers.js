@@ -1,4 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
+const { args } = require("commander");
 const { User, ToDo } = require("../models");
 const { signToken } = require("../utils/auth");
 
@@ -78,6 +79,20 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+    deleteToDo: async (parent, args, context) => {
+      if (context.user) {
+        const Todo = await ToDo.findByIdAndDelete({
+          ...args,
+          username: context.user.username,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { ToDos: Todo._id } },
+          { new: true }
+        );
+        return Todo;
+      }
+    },
     addReaction: async (parent, { ToDoId, reactionBody }, context) => {
       if (context.user) {
         const updatedToDo = await ToDo.findOneAndUpdate(
@@ -95,19 +110,19 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    addFriend: async (parent, { friendId }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { friends: friendId } },
-          { new: true }
-        ).populate("friends");
+    // addFriend: async (parent, { friendId }, context) => {
+    //   if (context.user) {
+    //     const updatedUser = await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $addToSet: { friends: friendId } },
+    //       { new: true }
+    //     ).populate("friends");
 
-        return updatedUser;
-      }
+    //     return updatedUser;
+    //   }
 
-      throw new AuthenticationError("You need to be logged in!");
-    },
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
   },
 };
 
