@@ -1,29 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
-      }
-    }
-  }
-`;
-
-export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
-      }
-    }
-  }
-`;
-
 export const QUERY_TODOS = gql`
   query ToDos($username: String) {
     ToDos(username: $username) {
@@ -48,9 +24,9 @@ export const QUERY_ME = gql`
       username
       email
       friendCount
-      thoughts {
+      ToDos {
         _id
-        thoughtText
+        ToDoText
         createdAt
         reactionCount
         reactions {
@@ -92,25 +68,12 @@ export const QUERY_USER = gql`
         _id
         username
       }
-      thoughts {
+      ToDos {
         _id
-        thoughtText
+        ToDo
+        Text
         createdAt
         reactionCount
-      }
-    }
-  }
-`;
-export const ADD_TODO = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
-      _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
-      reactions {
-        _id
       }
     }
   }

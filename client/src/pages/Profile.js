@@ -6,7 +6,7 @@ import ToDoList from "../components/ToDoLists/ToDoLists";
 import Auth from "../utils/auth";
 import ToDoForm from "../components/ToDoForm";
 
-const Profile = () => {
+const Profile = (props) => {
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },

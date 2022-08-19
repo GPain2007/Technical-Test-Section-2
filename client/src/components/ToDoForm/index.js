@@ -4,13 +4,12 @@ import { ADD_TODO } from "../../utils/mutations";
 import { QUERY_TODOS, QUERY_ME } from "../../utils/queries";
 
 const ToDoForm = () => {
-  const [thoughtText, setText] = useState("");
+  const [ToDoText, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
   const [addToDo, { error }] = useMutation(ADD_TODO, {
     update(cache, { data: { addToDo } }) {
       // could potentially not exist yet, so wrap in a try/catch
       try {
-        // update me array's cache
         // update me array's cache
         const { me } = cache.readQuery({ query: QUERY_ME });
         cache.writeQuery({
@@ -18,7 +17,7 @@ const ToDoForm = () => {
           data: { me: { ...me, ToDos: [...me.ToDos, addToDo] } },
         });
       } catch (e) {
-        console.warn("First thought insertion by user!");
+        console.warn("First ToDo insertion by user!");
       }
       // update Todo array's cache
       const { ToDos } = cache.readQuery({ query: QUERY_TODOS });
@@ -39,9 +38,9 @@ const ToDoForm = () => {
     setText("");
     setCharacterCount(0);
     try {
-      // add thought to database
+      // add todo to database
       await addToDo({
-        variables: { thoughtText },
+        variables: { ToDoText },
       });
 
       // clear form value
@@ -62,8 +61,8 @@ const ToDoForm = () => {
         onSubmit={handleFormSubmit}
       >
         <textarea
-          placeholder="Here's a new thought..."
-          value={thoughtText}
+          placeholder="Here's Something ToDo..."
+          value={ToDoText}
           className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>
