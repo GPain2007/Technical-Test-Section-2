@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-const SingleThought = props => {
+const SingleToDo = (props) => {
   return (
     <div>
       <div className="card mb-3">
         <p className="card-header">
           <span style={{ fontWeight: 700 }} className="text-light">
             Username
-          </span>{' '}
-          thought on createdAt
+          </span>{" "}
+          ToDo on createdAt
         </p>
         <div className="card-body">
-          <p>Thought Text</p>
+          <p>ToDo Text</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default SingleThought;
+export default SingleToDo;
